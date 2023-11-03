@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "This is a simple currency converter app. That converts currency value based on latest exchange rates.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",
