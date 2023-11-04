@@ -1,12 +1,13 @@
 import { useState } from "react";
 import InputBox from "./components/InputBox";
 import useCurrencyConverter from "./hooks/useCurrencyConverter";
+import { CgArrowsExchangeAltV } from "react-icons/cg";
 
 const App = () => {
   const [currency, setCurrency] = useState("inr");
   const [convertedCurrency, setConvertedCurrency] = useState("usd");
-  const [amount, setAmount] = useState(100);
-  const [convertedAmount, setConvertedAmount] = useState(0);
+  const [amount, setAmount] = useState();
+  const [convertedAmount, setConvertedAmount] = useState();
 
   const data = useCurrencyConverter(currency);
 
@@ -25,6 +26,16 @@ const App = () => {
           currencyOptions={Object.keys(data)}
           disabled={false}
         />
+        <CgArrowsExchangeAltV
+          onClick={() => {
+            setConvertedCurrency(currency);
+            setCurrency(convertedCurrency);
+            setAmount(convertedAmount);
+            setConvertedAmount(amount);
+          }}
+          className="text-5xl bg-gray-400 text-gray-950 rounded-full cursor-pointer self-center z-10 -my-6 hover:shadow-md hover:shadow-gray-700 border border-gray-400 hover:border-gray-500"
+        />
+
         <InputBox
           label={"To"}
           currency={convertedCurrency}
@@ -35,7 +46,9 @@ const App = () => {
         />
         <button
           className=" bg-gray-400 text-center h-10 m-2 text-xl rounded-lg font-semibold"
-          onClick={() => setConvertedAmount((amount * data[convertedCurrency]).toFixed(3))}
+          onClick={() =>
+            setConvertedAmount((amount * data[convertedCurrency]).toFixed(3))
+          }
         >
           Convert {currency.toUpperCase()} to {convertedCurrency.toUpperCase()}
         </button>
